@@ -35,20 +35,23 @@ public class ClockPane extends Pane {
         double centerY = this.getHeight() / 2;
 
         // Vẽ nền đồng hồ
+        // Vẽ nền đồng hồ
         ImageView background = new ImageView(new Image(getClass().getResource("/DisplayClock/Clock.png").toExternalForm()));
 
-        // Đảm bảo ảnh giữ tỉ lệ khi thay đổi kích thước và căn giữa
+// Đảm bảo ảnh giữ tỷ lệ khi thay đổi kích thước và căn giữa
         background.setPreserveRatio(true);
-        background.setFitWidth(this.getWidth());
-        background.setFitHeight(this.getHeight());
 
-        // Đưa background vào giữa pane
+// Đặt kích thước của nền đồng hồ sao cho vừa với chiều rộng hoặc chiều cao của pane mà không bị méo
+        double maxDimension = Math.min(this.getWidth(), this.getHeight());
+        background.setFitWidth(maxDimension);
+        background.setFitHeight(maxDimension);
+
+// Đưa background vào giữa pane
         background.setTranslateX((this.getWidth() - background.getFitWidth()) / 2);
         background.setTranslateY((this.getHeight() - background.getFitHeight()) / 2);
 
         this.getChildren().clear();  // Xóa các phần tử cũ trước khi vẽ lại đồng hồ
         this.getChildren().add(background);  // Thêm nền vào
-
         // Vẽ kim giây
         double secondLength = clockRadius * 0.8;
         double secondEndX = centerX + secondLength * Math.sin(this.second * Math.PI / 30);
